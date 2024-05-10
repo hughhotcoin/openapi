@@ -301,3 +301,153 @@ liqudatePrice|y|string|强平价||
 size|y|string|强平价||
 brokerPrice|y|string|爆仓价||
 
+
+### 保证金账户查询
+#### GET  /api/v1/perpetual/admin/insurance-account/bills
+
+请求参数：
+
+
+#### 请求参数：
+
+
+##### Query
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+AccessKeyId|y|string|访问key||
+SignatureVersion|y|string|版本||
+SignatureMethod|y|string|签名方法||HmacSHA256
+Signature|y|string|签名||
+Timestamp|y|string|时间戳||
+startDate|n|long|开始时间||
+endDate|n|long|结束时间||
+contractCode|n|string|合约code||
+page|n|integer|页数|1|
+pageSize|n|integer|每页数量|20|
+userId|y|long|userId||
+
+
+
+```json
+{
+    "bills": [
+        {
+            "amount": "1",
+            "balance": "36157.9579",
+            "bizType": "",
+            "brokerId": 0,
+            "contractCode": "ethusdt",
+            "contractType": "",
+            "createdDate": 1715200522733,
+            "currencyCode": "usdt",
+            "currencyCodeDisplayName": "USDT",
+            "currencyPairDTO": null,
+            "dealMarket": 0,
+            "deductedFee": "0.000000",
+            "detailSide": "close_long",
+            "dualPosition": 1,
+            "env": 0,
+            "fee": "0.000000",
+            "feeCurrencyCode": "",
+            "lever": 0,
+            "liquidationDate": 0,
+            "makerTaker": 0,
+            "marginDigit": 0,
+            "positionType": 0,
+            "price": "2943.4000",
+            "profit": "0.0887",
+            "referId": 3284410737869312,
+            "selectedMode": 0,
+            "size": "29.434",
+            "type": 48,
+            "typeDesc": ""
+        }
+    ],
+    "paginate": {
+        "page": 1,
+        "pageSize": 10,
+        "total": 520,
+        "totalPage": 52
+    },
+    "total": ""
+}
+
+```
+
+#### 返回：
+
+参数名称|是否必须|类型|描述|默认值|取值范围
+------------- | ------------- |  ------------- | ------------- |  ------------- | -------------
+amount|y|string|成交数量||
+balance|y|string|余额||
+bizType|y|string|类型||
+brokerId|y|string|业务方ID||
+contractCode|y|string|合约code||
+contractType|y|string|合约类型||
+createDate|y|string|创建时间||
+currencyCode|y|string|币种||
+currencyCodeDisplayName|y|string|币种显示名||
+dealMarket|y|number|0：普通单   1：带单   2：跟单||
+deductedFee|y|string|已减免的手续费费用||
+detailSide|y|string|交易类型 1.开多open_long 2.开空open_short 3.平多close_long 4.平空close_short||
+dualPosition|y|number|持仓模式||
+env|y|int|0-实盘/1-模拟盘||
+fee|y|string|手续费||
+feeCurrencyCode|y|string|手续费对应的币种，可能是币种，可能是点卡||
+lever|y|number|杠杆||
+liquidationDate|y|number|清算时间||
+makerTaker|y|number|1: maker 2: taker||
+marginDigit|y|number|保证金||
+positionType|y|number|持仓类型||
+price|y|string|成交价格||
+profit|y|string|收益||
+referId|y|number|账单关联记录 id||
+selectedMode|y|number|||
+positionType|y|number|持仓类型||
+positionType|y|number|持仓类型||
+size|y|string|成交价值||
+type|y|number|类型（11.充值 12.提现 13.转入 14.转出 15.多/买 16.空/卖 17.系统收取手续费 18.保险金 19.结算 20.穿仓对敲）||
+typeDesc|y|string|类型描述||
+currencyPairDTO|y|object|||
+--id|y|number|id||
+--biz|y|string|业务分类:perpetual,regular||
+--indexBase|n|string|指数基础货币,如BTC、ETH||
+--base|n|string|基础货币名,如BTC、FBTC||
+--quote|n|string|计价货币名，USD,CNY,USDT||
+--quoteDisplayName|n|string|计价币转换成的名称||
+--baseDisplayName|n|string|计价币转换成的名称||
+--indexBaseDisplayName|n|string|指数币||
+--pairCode|n|string|是Base和Quote之间的组合，如P_BTC_USDT，R_BTC_USDT||
+--insuranceAccount|n|number|保险金账号||
+--minTradeUnit|n|number|最小交易单位||
+--unitAmount|n|number|一张合约对应的计价货币面值，默认1||
+--minOrderAmount|n|number|每笔最小挂单张数||
+--maxOrderAmount|n|number|每笔最大挂单张数||
+--maxOrders|n|integer|单人最大挂单订单数||
+--minTradeDigit|n|integer|基础货币最小交易小数位||
+--minQuoteDigit|n|integer|计价货币最小交易小数位||
+--maxLevel|n|number|最大杠杆，全仓使用最大杠杆||
+--type|n|string|合约类型，可选值：week,nextweek,month,quarter（分别表示周、次周、月、季度），空字符串表示永续合约||
+--preLiqudatePriceThreshold|n|number|预强平价格阈值，计算方式：强平价格 + (开仓价格 - 强平价格) * 阈值||
+--premiumMinRange|n|number|溢价指数阈值下限||
+--premiumMaxRange|n|number|溢价指数阈值上限||
+--premiumDepth|n|number|溢价指数加权买卖价的取值深度，单位为基础货币||
+--fundingCeiling|n|number|绝对的资金费率上限，计算方式：起始保证金 - 维持保证金 的 百分比||
+--minAmount|n|number|最低交易档位，单位是基础货币||
+--diffAmount|n|number|单位是base，表示每档的差值||
+--maxAmount|n|number|单位是base，表示最高档位||
+--maintainRate|n|number|维持保证金费率，每升一档都增加一个维持保证金费率||
+--liquidationHour|n|integer|清算周期，以小时为单位，从北京中午12:00点开始计算||
+--dkFee|n|integer|点卡抵扣手续费，0表示不使用，1表示使用||
+--env|n|integer|是否测试盘，0表示线上盘，1表示测试盘||
+--online|n|integer|状态，0表示下线，1表示预发，2表示线上可用||
+--direction|n|integer|方向，0表示正向，1表示反向||
+--interestRate|n|number|利率，用于计算资金费率||
+--createdDate|n|string|创建时间，格式为YYYY-MM-DD HH:MM:SS||
+--modifyDate|n|string|更新时间，格式为YYYY-MM-DD HH:MM:SS||
+--marketPriceDigit|n|integer|标记价格最小单位，表示价格的精度（小数点后的位数）||
+--marginDigit|n|integer|保证金精度，表示保证金的精度（小数点后的位数）||
+--positionRiskRemind|n|string|持仓风险率提醒，用于提示用户持仓风险率的阈值||
+--sort|n|integer|排序||
+--openTradeTime|n|string|开盘时间，格式为YYYY-MM-DD HH:MM:SS||
+--feeAccount|n|number|手续费账号，用于记录手续费收支的账户||
