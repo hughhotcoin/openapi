@@ -432,16 +432,16 @@ feeCurrencyCode|y|string|手续费对应的币种，可能是币种，可能是�
 lever|y|number|杠杆||
 liquidationDate|y|number|清算时间||
 makerTaker|y|number|1: maker 2: taker||
-marginDigit|y|number|保证金||
+marginDigit|y|number|保证金精度||
 positionType|y|number|持仓类型||
 price|y|string|成交价格||
 profit|y|string|收益||
 referId|y|number|账单关联记录 id||
 selectedMode|y|number|||
 positionType|y|number|持仓类型||
-positionType|y|number|持仓类型||
+refUserId|y|number|关联用户id||
 size|y|string|成交价值||
-type|y|number|类型（11.充值 12.提现 13.转入 14.转出 15.多/买 16.空/卖 17.系统收取手续费 18.保险金 19.结算 20.穿仓对敲）||
+type|y|number|类型（48.强平注入 49.穿仓亏损）||
 typeDesc|y|string|类型描述||
 currencyPairDTO|y|object|||
 --id|y|number|id||
